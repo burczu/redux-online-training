@@ -21,5 +21,45 @@ export function filterEvents(filter) {
     payload: {
       filter
     }
-  }
+  };
+}
+
+export function nameChanged(name, valid) {
+  return {
+    type: constants.EVENTS_NAME_CHANGED,
+    payload: {
+      name,
+      valid
+    }
+  };
+}
+
+export function whereChanged(where, valid) {
+  return {
+    type: constants.EVENTS_WHERE_CHANGED,
+    payload: {
+      where,
+      valid
+    }
+  };
+}
+
+export function dateChanged(date, valid) {
+  return {
+    type: constants.EVENTS_DATE_CHANGED,
+    payload: {
+      date,
+      valid
+    }
+  };
+}
+
+export function hourChanged(hour, valid) {
+  return {
+    type: constants.EVENTS_HOUR_CHANGED,
+    payload: {
+      hour,
+      valid
+    }
+  };
 }

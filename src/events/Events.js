@@ -1,33 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import events from '../data/events';
 import EventItem from './EventItem';
 import EventFilters from './EventFilters';
 import EventAdd from './EventAdd';
 import * as eventActions from '../actions/events';
 
 class Events extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      events: [],
-      newName: '',
-      newNameValid: false,
-      newPlace: '',
-      newPlaceValid: false,
-      newDate: '',
-      newDateValid: false,
-      newTime: '',
-      newTimeValid: false
-    };
-  }
-
-  componentDidMount() {
-    this.setState({
-      events
-    });
-  }
-
   onClearClicked(event) {
     event.preventDefault();
 
@@ -48,18 +26,20 @@ class Events extends React.Component {
 
   onEventFieldChange(field, event) {
     const value = event.currentTarget.value;
+    const isValid = value.length > 0;
+
     switch (field) {
       case 'name':
-        this.setState({ newName: value, newNameValid: value.length > 0 });
+        this.props.nameChanged(value, isValid);
         break;
       case 'place':
-        this.setState({ newPlace: value, newPlaceValid: value.length > 0 });
+        this.props.whereChanged(value, isValid);
         break;
       case 'date':
-        this.setState({ newDate: value, newDateValid: value.length > 0 });
+        this.props.dateChanged(value, isValid);
         break;
       case 'time':
-        this.setState({ newTime: value, newTimeValid: value.length > 0 });
+        this.props.hourChanged(value, isValid);
         break;
       default:
         break;
@@ -110,14 +90,14 @@ class Events extends React.Component {
           })}
         </ul>
         <button onClick={this.onClearClicked.bind(this)}>Wyczyść</button>
-        <EventAdd name={this.state.newName}
-                  place={this.state.newPlace}
-                  date={this.state.newDate}
-                  time={this.state.newTime}
-                  nameValid={this.state.newNameValid}
-                  placeValid={this.state.newPlaceValid}
-                  dateValid={this.state.newDateValid}
-                  timeValid={this.state.newTimeValid}
+        <EventAdd name={this.props.newName}
+                  place={this.props.newWhere}
+                  date={this.props.newDate}
+                  time={this.props.newHour}
+                  nameValid={this.props.newNameValid}
+                  placeValid={this.props.newWhereValid}
+                  dateValid={this.props.newDateValid}
+                  timeValid={this.props.newHourValid}
                   onFieldChange={this.onEventFieldChange.bind(this)}
                   onFormSubmit={this.onEventAdd.bind(this)}
         />
@@ -133,7 +113,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     clearEvents: () => dispatch(eventActions.clearEvents()),
     deleteEvent: (id) => dispatch(eventActions.deleteEvent(id)),
-    filterEvents: (filter) => dispatch(eventActions.filterEvents(filter))
+    filterEvents: (filter) => dispatch(eventActions.filterEvents(filter)),
+    nameChanged: (name, valid) => dispatch(eventActions.nameChanged(name, valid)),
+    whereChanged: (where, valid) => dispatch(eventActions.whereChanged(where, valid)),
+    dateChanged: (date, valid) => dispatch(eventActions.dateChanged(date, valid)),
+    hourChanged: (hour, valid) => dispatch(eventActions.hourChanged(hour, valid))
   };
 };
 
