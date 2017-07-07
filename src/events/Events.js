@@ -104,7 +104,7 @@ class Events extends React.Component {
       <div>
         <EventFilters onFilterChange={this.onFilterChange.bind(this)} />
         <ul>
-          {this.state.events.map(item => {
+          {this.props.events.map(item => {
             const date = new Date(item.date);
 
             if (date >= Date.now() && item.name.indexOf(this.state.filter) > -1) {
