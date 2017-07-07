@@ -11,7 +11,6 @@ class Events extends React.Component {
     super(props);
     this.state = {
       events: [],
-      filter: '',
       newName: '',
       newNameValid: false,
       newPlace: '',
