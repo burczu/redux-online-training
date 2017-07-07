@@ -2,7 +2,8 @@ import * as constants from '../constants';
 import events from '../data/events.json';
 
 const initialState = {
-  events
+  events,
+  filter: '',
 };
 
 export function eventsReducer(state = initialState, action) {
@@ -14,6 +15,8 @@ export function eventsReducer(state = initialState, action) {
       const filteredEvents = state.events.filter(item => item.id !== id);
 
       return { ...state, events: filteredEvents };
+    case constants.EVENTS_FILTER_EVENTS:
+      return { ...state, filter: action.payload.filter };
     default:
       return state;
   }

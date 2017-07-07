@@ -14,3 +14,12 @@ export function deleteEvent(id) {
     }
   };
 }
+
+export function filterEvents(filter) {
+  return {
+    type: constants.EVENTS_FILTER_EVENTS,
+    payload: {
+      filter
+    }
+  }
+}
