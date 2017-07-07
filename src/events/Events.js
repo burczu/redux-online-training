@@ -4,6 +4,7 @@ import events from '../data/events';
 import EventItem from './EventItem';
 import EventFilters from './EventFilters';
 import EventAdd from './EventAdd';
+import * as eventActions from '../actions/events';
 
 class Events extends React.Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class Events extends React.Component {
   onClearClicked(event) {
     event.preventDefault();
 
-    this.setState({ events: [] });
+    this.props.clearEvents();
   }
 
   onDeleteClicked(id, event) {
@@ -136,7 +137,9 @@ const mapStateToProps = (state) => {
   return { ...state };
 };
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    clearEvents: () => dispatch(eventActions.clearEvents())
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Events);
