@@ -7,24 +7,13 @@ class Details extends React.Component {
     this.state = { event: {} };
   }
 
-  getEvent(id) {
-    return events.find(item => item.id === parseInt(id, 10));
-  }
-
   componentDidMount() {
+    const id = this.props.match.params.eventId;
+    const event = events.find(item => item.id === parseInt(id, 10));
+
     this.setState({
-      event: this.getEvent(this.props.match.params.eventId)
+      event
     });
-  }
-
-  componentDidUpdate() {
-    const event = this.getEvent(this.props.match.params.eventId);
-
-    if (event.id !== this.state.event.id) {
-      this.setState({
-        event
-      });
-    }
   }
 
   render() {

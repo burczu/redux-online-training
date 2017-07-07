@@ -6,6 +6,8 @@ const EventItem = (props) => {
   return (
     <li>
       <strong>{props.name}</strong><br />
+      Gdzie: {props.place}<br />
+      Kiedy: {props.date} - {props.time}<br />
       <button onClick={props.onDeleteClicked.bind(this, props.id)}>Usuń</button>
       <Link to={'/details/' + props.id}>Szczegóły</Link>
     </li>
