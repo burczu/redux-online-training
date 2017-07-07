@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import events from '../data/events';
 import EventItem from './EventItem';
 import EventFilters from './EventFilters';
@@ -131,4 +132,11 @@ class Events extends React.Component {
   }
 };
 
-export default Events;
+const mapStateToProps = (state) => {
+  return { ...state };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Events);
