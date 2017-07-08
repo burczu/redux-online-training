@@ -4,8 +4,16 @@ import * as detailsActions from '../actions/details';
 
 class Details extends React.Component {
   componentDidMount() {
-    const id = this.props.match.params.eventId;
-    this.props.selectEvent(id);
+    this.props.getDetails();
+  }
+
+  componentDidUpdate() {
+    const { dataLoaded } = this.props.detailsStore;
+
+    if (dataLoaded) {
+      const id = this.props.match.params.eventId;
+      this.props.selectEvent(id);
+    }
   }
 
   render() {
@@ -27,6 +35,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
+    getDetails: () => dispatch(detailsActions.getDetails()),
     selectEvent: (id) => dispatch(detailsActions.selectEvent(id))
   };
 };
