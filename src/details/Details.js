@@ -1,23 +1,15 @@
 import React from 'react';
-import events from '../data/events.json';
+import { connect } from 'react-redux';
+import * as detailsActions from '../actions/details';
 
 class Details extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { event: {} };
-  }
-
   componentDidMount() {
     const id = this.props.match.params.eventId;
-    const event = events.find(item => item.id === parseInt(id, 10));
-
-    this.setState({
-      event
-    });
+    this.props.selectEvent(id);
   }
 
   render() {
-    const { name, place, date, time } = this.state.event;
+    const { name, place, date, time } = this.props.detailsStore.event;
 
     return (
       <div>
@@ -30,4 +22,13 @@ class Details extends React.Component {
   }
 }
 
-export default Details;
+const mapStateToProps = (state) => {
+  return { ...state };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    selectEvent: (id) => dispatch(detailsActions.selectEvent(id))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Details);
