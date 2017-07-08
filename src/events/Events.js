@@ -6,6 +6,10 @@ import EventAdd from './EventAdd';
 import * as eventActions from '../actions/events';
 
 class Events extends React.Component {
+  componentDidMount() {
+    this.props.getEvents();
+  }
+
   onClearClicked(event) {
     event.preventDefault();
 
@@ -104,6 +108,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
+    getEvents: () => dispatch(eventActions.getEvents()),
     clearEvents: () => dispatch(eventActions.clearEvents()),
     deleteEvent: (id) => dispatch(eventActions.deleteEvent(id)),
     filterEvents: (filter) => dispatch(eventActions.filterEvents(filter)),

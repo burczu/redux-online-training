@@ -1,8 +1,9 @@
 import * as constants from '../constants';
-import events from '../data/events.json';
 
 const initialState = {
-  events,
+  events: [],
+  isLoading: false,
+  isError: false,
   filter: '',
   newName: '',
   newNameValid: false,
@@ -16,6 +17,12 @@ const initialState = {
 
 export function eventsReducer(state = initialState, action) {
   switch(action.type) {
+    case constants.EVENTS_GET_EVENTS:
+      return { ...state, isLoading: true };
+    case constants.EVENTS_GET_EVENTS_SUCCESS:
+      return { ...state, isLoading: false, events: action.payload.data };
+    case constants.EVENTS_GET_EVENTS_ERROR:
+      return { ...state, isLoading: false, isError: true };
     case constants.EVENTS_CLEAR_LIST:
       return { ...state, events: [] };
     case constants.EVENTS_DELETE_EVENT:
