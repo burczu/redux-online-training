@@ -33,6 +33,30 @@ export function eventsReducer(state = initialState, action) {
       return { ...state, newDate: action.payload.date, newDateValid: action.payload.valid };
     case constants.EVENTS_HOUR_CHANGED:
       return { ...state, newHour: action.payload.hour, newHourValid: action.payload.valid };
+    case constants.EVENTS_ADD_EVENT:
+      const currentEvents = state.events;
+      const maxId = Math.max(...currentEvents.map(item => item.id));
+
+      currentEvents.push({
+        id: maxId + 1,
+        name: action.payload.name,
+        place: action.payload.where,
+        date: action.payload.date,
+        time: action.payload.hour
+      });
+
+      return {
+        ...state,
+        events: currentEvents,
+        newName: '',
+        newNameValid: false,
+        newWhere: '',
+        newWhereValid: false,
+        newDate: '',
+        newDateValid: false,
+        newHour: '',
+        newHourValid: false
+      };
     default:
       return state;
   }

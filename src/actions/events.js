@@ -63,3 +63,15 @@ export function hourChanged(hour, valid) {
     }
   };
 }
+
+export function addEvent(name, where, date, hour) {
+  return {
+    type: constants.EVENTS_ADD_EVENT,
+    payload: {
+      name,
+      where,
+      date,
+      hour
+    }
+  };
+}

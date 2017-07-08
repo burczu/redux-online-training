@@ -50,26 +50,19 @@ class Events extends React.Component {
     event.preventDefault();
 
     const {
-      events,
       newName,
-      newPlace,
+      newNameValid,
+      newWhere,
+      newWhereValid,
       newDate,
-      newTime
-    } = this.state;
+      newDateValid,
+      newHour,
+      newHourValid
+    } = this.props;
 
-    const maxId = Math.max(...events.map(item => item.id));
-
-    events.push({
-      id: maxId + 1,
-      name: newName,
-      place: newPlace,
-      date: newDate,
-      time: newTime
-    });
-
-    this.setState({
-      events
-    })
+    if (newNameValid && newWhereValid && newHourValid && newDateValid) {
+      this.props.addEvent(newName, newWhere, newDate, newHour);
+    }
   }
 
   render() {
@@ -117,7 +110,8 @@ const mapDispatchToProps = (dispatch) => {
     nameChanged: (name, valid) => dispatch(eventActions.nameChanged(name, valid)),
     whereChanged: (where, valid) => dispatch(eventActions.whereChanged(where, valid)),
     dateChanged: (date, valid) => dispatch(eventActions.dateChanged(date, valid)),
-    hourChanged: (hour, valid) => dispatch(eventActions.hourChanged(hour, valid))
+    hourChanged: (hour, valid) => dispatch(eventActions.hourChanged(hour, valid)),
+    addEvent: (name, where, date, hour) => dispatch(eventActions.addEvent(name, where, date, hour))
   };
 };
 
