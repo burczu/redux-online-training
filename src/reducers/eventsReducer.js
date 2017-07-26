@@ -7,7 +7,7 @@ const initialState = {
 
 export function eventsReducer(state = initialState, action) {
   switch (action.type) {
-    case constants.EVENTS_CLEAR_LIST:
+    case constants.EVENTS_CLEAR:
       return { ...state, events: [] };
     default:
       return state;
