@@ -2,13 +2,13 @@ import * as constants from '../constants';
 
 export function clearEvents() {
   return {
-    type: constants.EVENTS_CLEAR_LIST
+    type: constants.EVENTS_CLEAR
   };
 }
 
 export function deleteEvent(id) {
   return {
-    type: constants.EVENTS_DELETE_EVENT,
+    type: constants.EVENTS_DELETE,
     payload: {
       id
     }
@@ -17,7 +17,7 @@ export function deleteEvent(id) {
 
 export function filterEvents(filter) {
   return {
-    type: constants.EVENTS_FILTER_EVENTS,
+    type: constants.EVENTS_FILTER,
     payload: {
       filter
     }

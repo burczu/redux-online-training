@@ -10,7 +10,6 @@ class Events extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: [],
       newName: '',
       newNameValid: false,
       newPlace: '',
@@ -129,6 +128,7 @@ class Events extends React.Component {
 const mapStateToProps = (state) => {
   return { ...state };
 };
+
 const mapDispatchToProps = (dispatch) => {
   return {
     clearEvents: () => dispatch(eventActions.clearEvents()),
