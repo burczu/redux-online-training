@@ -47,22 +47,10 @@ class Events extends React.Component {
 
   onEventFieldChange(field, event) {
     const value = event.currentTarget.value;
-    switch (field) {
-      case 'name':
-        this.setState({ newName: value, newNameValid: value.length > 0 });
-        break;
-      case 'place':
-        this.setState({ newPlace: value, newPlaceValid: value.length > 0 });
-        break;
-      case 'date':
-        this.setState({ newDate: value, newDateValid: value.length > 0 });
-        break;
-      case 'time':
-        this.setState({ newTime: value, newTimeValid: value.length > 0 });
-        break;
-      default:
-        break;
-    }
+    this.setState({
+      [field]: value,
+      [field + 'Valid']: value.length > 0
+    });
   }
 
   onEventAdd(event) {
@@ -71,9 +59,13 @@ class Events extends React.Component {
     const {
       events,
       newName,
+      newNameValid,
       newPlace,
+      newPlaceValid,
       newDate,
-      newTime
+      newDateValid,
+      newTime,
+      newTimeValid
     } = this.state;
 
     const maxId = Math.max(...events.map(item => item.id));
@@ -86,9 +78,11 @@ class Events extends React.Component {
       time: newTime
     });
 
-    this.setState({
-      events
-    })
+    if (newNameValid && newPlaceValid && newDateValid && newTimeValid) {
+      this.setState({
+        events
+      });
+    }
   }
 
   render() {
