@@ -6,12 +6,6 @@ import EventAdd from './EventAdd';
 import * as eventActions from '../actions/events';
 
 class Events extends React.Component {
-  componentDidMount() {
-    this.setState({
-      events
-    });
-  }
-
   onClearClicked(event) {
     event.preventDefault();
 
