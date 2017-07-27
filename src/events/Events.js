@@ -41,7 +41,9 @@ class Events extends React.Component {
     const {
       events,
       newName,
+      newNameValid,
       newPlace,
+      newPlaceValid,
       newDate,
       newDateValid,
       newTime,
@@ -58,9 +60,11 @@ class Events extends React.Component {
       time: newTime
     });
 
-    this.setState({
-      events
-    })
+    if (newNameValid && newPlaceValid && newDateValid && newTimeValid) {
+      this.setState({
+        events
+      });
+    }
   }
 
   render() {
