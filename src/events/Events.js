@@ -6,6 +6,12 @@ import EventAdd from './EventAdd';
 import * as eventActions from '../actions/events';
 
 class Events extends React.Component {
+  componentDidMount() {
+    this.setState({
+      events
+    });
+  }
+
   onClearClicked(event) {
     event.preventDefault();
 
@@ -26,24 +32,7 @@ class Events extends React.Component {
 
   onEventFieldChange(field, event) {
     const value = event.currentTarget.value;
-    const isValid = value.length > 0;
-
-    switch (field) {
-      case 'name':
-        this.props.nameChanged(value, isValid);
-        break;
-      case 'place':
-        this.props.whereChanged(value, isValid);
-        break;
-      case 'date':
-        this.props.dateChanged(value, isValid);
-        break;
-      case 'time':
-        this.props.hourChanged(value, isValid);
-        break;
-      default:
-        break;
-    }
+    this.props.changeFormField(field, value);
   }
 
   onEventAdd(event) {
@@ -54,8 +43,10 @@ class Events extends React.Component {
       newName,
       newPlace,
       newDate,
-      newTime
-    } = this.state;
+      newDateValid,
+      newTime,
+      newTimeValid
+    } = this.props;
 
     const maxId = Math.max(...events.map(item => item.id));
 
@@ -91,13 +82,13 @@ class Events extends React.Component {
         </ul>
         <button onClick={this.onClearClicked.bind(this)}>Wyczyść</button>
         <EventAdd name={this.props.newName}
-                  place={this.props.newWhere}
+                  place={this.props.newPlace}
                   date={this.props.newDate}
-                  time={this.props.newHour}
+                  time={this.props.newTime}
                   nameValid={this.props.newNameValid}
-                  placeValid={this.props.newWhereValid}
+                  placeValid={this.props.newPlaceValid}
                   dateValid={this.props.newDateValid}
-                  timeValid={this.props.newHourValid}
+                  timeValid={this.props.newTimeValid}
                   onFieldChange={this.onEventFieldChange.bind(this)}
                   onFormSubmit={this.onEventAdd.bind(this)}
         />
@@ -114,10 +105,7 @@ const mapDispatchToProps = (dispatch) => {
     clearEvents: () => dispatch(eventActions.clearEvents()),
     deleteEvent: (id) => dispatch(eventActions.deleteEvent(id)),
     filterEvents: (filter) => dispatch(eventActions.filterEvents(filter)),
-    nameChanged: (name, valid) => dispatch(eventActions.nameChanged(name, valid)),
-    whereChanged: (where, valid) => dispatch(eventActions.whereChanged(where, valid)),
-    dateChanged: (date, valid) => dispatch(eventActions.dateChanged(date, valid)),
-    hourChanged: (hour, valid) => dispatch(eventActions.hourChanged(hour, valid))
+    changeFormField: (field, value) => dispatch(eventActions.changeFormField(field, value))
   };
 };
 
