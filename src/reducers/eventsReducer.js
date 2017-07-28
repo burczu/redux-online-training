@@ -15,7 +15,7 @@ const initialState = {
 };
 
 export function eventsReducer(state = initialState, action) {
-  switch(action.type) {
+  switch (action.type) {
     case constants.EVENTS_CLEAR:
       return { ...state, events: [] };
     case constants.EVENTS_DELETE:
