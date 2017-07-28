@@ -87,13 +87,13 @@ class Events extends React.Component {
         </ul>
         <button onClick={this.onClearClicked.bind(this)}>Wyczyść</button>
         <EventAdd name={this.props.newName}
-                  place={this.props.newPlace}
+                  place={this.props.newWhere}
                   date={this.props.newDate}
-                  time={this.props.newTime}
+                  time={this.props.newHour}
                   nameValid={this.props.newNameValid}
-                  placeValid={this.props.newPlaceValid}
+                  placeValid={this.props.newWhereValid}
                   dateValid={this.props.newDateValid}
-                  timeValid={this.props.newTimeValid}
+                  timeValid={this.props.newHourValid}
                   onFieldChange={this.onEventFieldChange.bind(this)}
                   onFormSubmit={this.onEventAdd.bind(this)}
         />
