@@ -1,18 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import events from '../data/events';
 import EventItem from './EventItem';
 import EventFilters from './EventFilters';
 import EventAdd from './EventAdd';
 import * as eventActions from '../actions/events';
 
 class Events extends React.Component {
-  componentDidMount() {
-    this.setState({
-      events
-    });
-  }
-
   onClearClicked(event) {
     event.preventDefault();
 
