@@ -1,11 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import events from '../data/events';
 import EventItem from './EventItem';
 import EventFilters from './EventFilters';
 import EventAdd from './EventAdd';
 import * as eventActions from '../actions/events';
 
 class Events extends React.Component {
+  componentDidMount() {
+    this.setState({
+      events
+    });
+  }
+
   onClearClicked(event) {
     event.preventDefault();
 
@@ -26,24 +33,7 @@ class Events extends React.Component {
 
   onEventFieldChange(field, event) {
     const value = event.currentTarget.value;
-    const isValid = value.length > 0;
-
-    switch (field) {
-      case 'name':
-        this.props.nameChanged(value, isValid);
-        break;
-      case 'place':
-        this.props.whereChanged(value, isValid);
-        break;
-      case 'date':
-        this.props.dateChanged(value, isValid);
-        break;
-      case 'time':
-        this.props.hourChanged(value, isValid);
-        break;
-      default:
-        break;
-    }
+    this.props.changeFormField(field, value);
   }
 
   onEventAdd(event) {
@@ -60,7 +50,7 @@ class Events extends React.Component {
       newHourValid
     } = this.props;
 
-    if (newNameValid && newWhereValid && newHourValid && newDateValid) {
+    if (newNameValid && newWhereValid && newDateValid && newHourValid) {
       this.props.addEvent(newName, newWhere, newDate, newHour);
     }
   }
@@ -102,16 +92,14 @@ class Events extends React.Component {
 const mapStateToProps = (state) => {
   return { ...state };
 };
+
 const mapDispatchToProps = (dispatch) => {
   return {
     clearEvents: () => dispatch(eventActions.clearEvents()),
     deleteEvent: (id) => dispatch(eventActions.deleteEvent(id)),
     filterEvents: (filter) => dispatch(eventActions.filterEvents(filter)),
-    nameChanged: (name, valid) => dispatch(eventActions.nameChanged(name, valid)),
-    whereChanged: (where, valid) => dispatch(eventActions.whereChanged(where, valid)),
-    dateChanged: (date, valid) => dispatch(eventActions.dateChanged(date, valid)),
-    hourChanged: (hour, valid) => dispatch(eventActions.hourChanged(hour, valid)),
-    addEvent: (name, where, date, hour) => dispatch(eventActions.addEvent(name, where, date, hour))
+    changeFormField: (field, value) => dispatch(eventActions.changeFormField(field, value)),
+    addEvent: (name, place, date, time) => dispatch(eventActions.addEvent(name, place, date, time))
   };
 };
 

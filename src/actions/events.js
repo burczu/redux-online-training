@@ -2,13 +2,13 @@ import * as constants from '../constants';
 
 export function clearEvents() {
   return {
-    type: constants.EVENTS_CLEAR_LIST
+    type: constants.EVENTS_CLEAR
   };
 }
 
 export function deleteEvent(id) {
   return {
-    type: constants.EVENTS_DELETE_EVENT,
+    type: constants.EVENTS_DELETE,
     payload: {
       id
     }
@@ -17,61 +17,31 @@ export function deleteEvent(id) {
 
 export function filterEvents(filter) {
   return {
-    type: constants.EVENTS_FILTER_EVENTS,
+    type: constants.EVENTS_FILTER,
     payload: {
       filter
     }
   };
 }
 
-export function nameChanged(name, valid) {
+export function changeFormField(field, value) {
   return {
-    type: constants.EVENTS_NAME_CHANGED,
+    type: constants.EVENTS_FORM_DATA,
+    payload: {
+      field,
+      value
+    }
+  }
+}
+
+export function addEvent(name, place, date, time) {
+  return {
+    type: constants.EVENTS_ADD,
     payload: {
       name,
-      valid
-    }
-  };
-}
-
-export function whereChanged(where, valid) {
-  return {
-    type: constants.EVENTS_WHERE_CHANGED,
-    payload: {
-      where,
-      valid
-    }
-  };
-}
-
-export function dateChanged(date, valid) {
-  return {
-    type: constants.EVENTS_DATE_CHANGED,
-    payload: {
+      place,
       date,
-      valid
-    }
-  };
-}
-
-export function hourChanged(hour, valid) {
-  return {
-    type: constants.EVENTS_HOUR_CHANGED,
-    payload: {
-      hour,
-      valid
-    }
-  };
-}
-
-export function addEvent(name, where, date, hour) {
-  return {
-    type: constants.EVENTS_ADD_EVENT,
-    payload: {
-      name,
-      where,
-      date,
-      hour
+      time
     }
   };
 }
