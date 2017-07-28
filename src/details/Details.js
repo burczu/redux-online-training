@@ -5,7 +5,7 @@ import * as detailsActions from '../actions/details';
 class Details extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.eventId;
-    this.props.selectEvent(id);
+    this.props.findEvent(id);
   }
 
   render() {
@@ -27,7 +27,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    selectEvent: (id) => dispatch(detailsActions.selectEvent(id))
+    findEvent: (eventId) => dispatch(detailsActions.findEvent(eventId))
   };
 };
 

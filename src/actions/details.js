@@ -1,10 +1,10 @@
 import * as constants from '../constants';
 
-export function selectEvent(id) {
+export function findEvent(eventId) {
   return {
-    type: constants.DETAILS_SELECT_EVENT,
+    type: constants.DETAILS_FIND,
     payload: {
-      id
+      eventId
     }
   }
 }
