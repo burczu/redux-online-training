@@ -16,45 +16,35 @@ const initialState = {
 };
 
 export function eventsReducer(state = initialState, action) {
-  switch(action.type) {
-    case constants.EVENTS_GET_EVENTS:
-      return { ...state, isLoading: true };
-    case constants.EVENTS_GET_EVENTS_SUCCESS:
-      return { ...state, isLoading: false, events: action.payload.data };
-    case constants.EVENTS_GET_EVENTS_ERROR:
-      return { ...state, isLoading: false, isError: true };
-    case constants.EVENTS_CLEAR_LIST:
+  switch (action.type) {
+    case constants.EVENTS_CLEAR:
       return { ...state, events: [] };
-    case constants.EVENTS_DELETE_EVENT:
+    case constants.EVENTS_DELETE:
       const id = action.payload.id;
       const filteredEvents = state.events.filter(item => item.id !== id);
 
       return { ...state, events: filteredEvents };
-    case constants.EVENTS_FILTER_EVENTS:
+    case constants.EVENTS_FILTER:
       return { ...state, filter: action.payload.filter };
-    case constants.EVENTS_NAME_CHANGED:
-      return { ...state, newName: action.payload.name, newNameValid: action.payload.valid };
-    case constants.EVENTS_WHERE_CHANGED:
-      return { ...state, newWhere: action.payload.where, newWhereValid: action.payload.valid };
-    case constants.EVENTS_DATE_CHANGED:
-      return { ...state, newDate: action.payload.date, newDateValid: action.payload.valid };
-    case constants.EVENTS_HOUR_CHANGED:
-      return { ...state, newHour: action.payload.hour, newHourValid: action.payload.valid };
-    case constants.EVENTS_ADD_EVENT:
-      const currentEvents = state.events;
-      const maxId = Math.max(...currentEvents.map(item => item.id));
+    case constants.EVENTS_FORM_DATA:
+      const { field, value } = action.payload;
+      return { ...state, [field]: value, [field + 'Valid']: value.length > 0 };
+    case constants.EVENTS_ADD:
+      const stateCopy = { ...state };
+      const maxId = Math.max(...stateCopy.events.map(item => item.id));
+      const { name, place, date, time } = action.payload;
 
-      currentEvents.push({
+      stateCopy.events.push({
         id: maxId + 1,
-        name: action.payload.name,
-        place: action.payload.where,
-        date: action.payload.date,
-        time: action.payload.hour
+        name: name,
+        place: place,
+        date: date,
+        time: time
       });
 
       return {
         ...state,
-        events: currentEvents,
+        events: stateCopy.events,
         newName: '',
         newNameValid: false,
         newWhere: '',
@@ -64,6 +54,12 @@ export function eventsReducer(state = initialState, action) {
         newHour: '',
         newHourValid: false
       };
+    case constants.EVENTS_GET_START:
+      return { ...state, isLoading: true };
+    case constants.EVENTS_GET_SUCCESS:
+      return { ...state, isLoading: false, events: action.payload.data };
+    case constants.EVENTS_GET_ERROR:
+      return { ...state, isLoading: false, isError: true };
     default:
       return state;
   }

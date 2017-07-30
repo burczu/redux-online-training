@@ -1,46 +1,46 @@
 import * as constants from '../constants';
 import fetch from 'isomorphic-fetch';
 
-export function getDetails() {
+export function getEvents() {
   return (dispatch) => {
-    dispatch(getDetailsRequested());
+    dispatch(getEventsStart());
 
     fetch('http://frontendinsights.com/events.json')
       .then(response => response.json())
-      .then(data => dispatch(getDetailsSuccess(data)))
-      .catch(error => dispatch(getDetailsError(error)));
+      .then(data => dispatch(getEventsSuccess(data)))
+      .catch(error => dispatch(getEventsError(error)));
   };
 }
 
-export function getDetailsRequested() {
+export function getEventsStart() {
   return {
-    type: constants.DETAILS_GET_DETAILS
+    type: constants.DETAILS_GET_START
   };
 }
 
-export function getDetailsSuccess(data) {
+export function getEventsSuccess(data) {
   return {
-    type: constants.DETAILS_GET_DETAILS_SUCCESS,
+    type: constants.DETAILS_GET_SUCCESS,
     payload: {
       data
     }
   }
 }
 
-export function getDetailsError(error) {
+export function getEventsError(error) {
   return {
-    type: constants.DETAILS_GET_DETAILS_ERROR,
+    type: constants.DETAILS_GET_ERROR,
     payload: {
       error
     }
   }
 }
 
-export function selectEvent(id) {
+export function findEvent(eventId) {
   return {
-    type: constants.DETAILS_SELECT_EVENT,
+    type: constants.DETAILS_FIND,
     payload: {
-      id
+      eventId
     }
   }
 }
